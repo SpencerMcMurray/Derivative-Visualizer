@@ -1,0 +1,33 @@
+{
+  "name": "Derivative-Visualizer",
+  "version": "1.0.0",
+  "description": "This project is a visualizer for higher order derivative approximations.",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd server && python main.py",
+    "client": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpencerMcMurray/Derivative-Visualizer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SpencerMcMurray/Derivative-Visualizer/issues"
+  },
+  "homepage": "https://github.com/SpencerMcMurray/Derivative-Visualizer#readme",
+  "dependencies": {
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.6",
+    "@types/react": "^16.9.35",
+    "typescript": "^3.9.3"
+  }
+}
