@@ -4,6 +4,7 @@ import { Line } from "../public/static/helpers/interfaces";
 import Graph from "../components/Graph";
 
 const Index: NextPage<{}> = () => {
+  // TODO: These 3 consts will come from a backend fetch
   const x: number[] = [1, 2, 3];
   const approxs: Line[] = [
     { name: "Approx A", yPoints: [4, 3, 2] },
@@ -15,8 +16,8 @@ const Index: NextPage<{}> = () => {
   ];
   return (
     <React.Fragment>
-      <Graph title="Approximations" x={x} lines={approxs} />
-      <Graph title="Relative Errors" x={x} lines={errs} />
+      <Graph id="g-1" title="Approximations" x={x} lines={approxs} />
+      <Graph id="g-2" title="Relative Errors" x={x} lines={errs} />
     </React.Fragment>
   );
 };

@@ -5,6 +5,7 @@ import loadable from "@loadable/component";
 const Chart = loadable(() => import("react-apexcharts"));
 
 interface GraphProps {
+  id: string;
   title: string;
   x: number[];
   lines: Line[];
@@ -12,9 +13,9 @@ interface GraphProps {
   height?: number;
 }
 
-const Graph: NextPage<GraphProps> = ({ title, x, lines, ...dims }) => {
+const Graph: NextPage<GraphProps> = ({ id, title, x, lines, ...dims }) => {
   const options = {
-    chart: { group: "charts", id: title },
+    chart: { group: "charts", id },
     title: { text: title },
     xaxis: { x },
   };
