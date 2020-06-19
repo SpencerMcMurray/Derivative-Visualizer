@@ -4,6 +4,7 @@ import { Line } from "../public/static/helpers/interfaces";
 import Graph from "../components/Graph";
 import GraphBox from "../components/GraphBox";
 import Title from "../components/Title";
+import InputBox from "../components/InputBox";
 
 const Index: NextPage<{}> = () => {
   // TODO: These 3 consts will come from a backend fetch
@@ -19,6 +20,7 @@ const Index: NextPage<{}> = () => {
   return (
     <React.Fragment>
       <Title />
+      <InputBox />
       <GraphBox>
         <Graph id="approx" title="Approximations" x={x} lines={approxs} />
         <Graph id="rel-err" title="Relative Errors" x={x} lines={errs} />

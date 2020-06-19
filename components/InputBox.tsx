@@ -7,8 +7,14 @@ const InputBox: FunctionComponent<{}> = () => {
   const [start, setStart] = useState("0");
   const [stop, setStop] = useState("5");
   const [pts, setPts] = useState("4");
+
+  const handleSubmit = () => {
+    const data = { f, n, start, stop, pts };
+    console.log(data);
+  };
+
   return (
-    <div>
+    <div className="container ml-4 my-4 p-2 border rounded">
       <Form.Row>
         <Form.Group as={Col} controlId="fcn">
           <Form.Label>Function</Form.Label>
@@ -32,8 +38,8 @@ const InputBox: FunctionComponent<{}> = () => {
         </Form.Group>
       </Form.Row>
 
+      <h5>X Range</h5>
       <Form.Row>
-        <h4>X Range</h4>
         <Form.Group as={Col} controlId="start">
           <Form.Label>Start</Form.Label>
           <Form.Control
@@ -56,7 +62,7 @@ const InputBox: FunctionComponent<{}> = () => {
         </Form.Group>
 
         <Form.Group as={Col} controlId="pts">
-          <Form.Label>Number of Points</Form.Label>
+          <Form.Label>Points</Form.Label>
           <Form.Control
             onChange={(evt) => setPts(evt.target.value)}
             type="text"
@@ -64,7 +70,9 @@ const InputBox: FunctionComponent<{}> = () => {
           />
         </Form.Group>
       </Form.Row>
-      <Button variant="success">Submit</Button>
+      <Button onClick={handleSubmit} variant="success">
+        Submit
+      </Button>
     </div>
   );
 };

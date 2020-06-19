@@ -27,8 +27,8 @@ const Graph: FunctionComponent<GraphProps> = ({ x, lines, ...props }) => {
       options={options}
       series={series}
       type="area"
-      width={props.width || 600}
-      height={props.height || 600}
+      width={props.width || 500}
+      height={props.height || 500}
     />
   );
 };
