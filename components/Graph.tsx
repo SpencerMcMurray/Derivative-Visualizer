@@ -18,14 +18,10 @@ const Graph: FunctionComponent<GraphProps> = ({ x, lines, ...props }) => {
     title: { text: props.title },
     xaxis: { x },
   };
-  const series = lines.map((line, idx) => ({
-    name: line.name,
-    data: line.yPoints,
-  }));
   return (
     <Chart
       options={options}
-      series={series}
+      series={lines}
       type="area"
       width={props.width || 500}
       height={props.height || 500}
