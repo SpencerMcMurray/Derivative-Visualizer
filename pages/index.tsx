@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { NextPage } from "next";
 import { Approximation } from "../public/static/helpers/interfaces";
-import Graph from "../components/Graph";
 import GraphBox from "../components/GraphBox";
 import Title from "../components/Title";
 import InputBox from "../components/InputBox";
+import SelectBox from "../components/SelectBox";
 
 const Index: NextPage<{}> = () => {
+  const [show, setShow] = useState("");
   // TODO: These consts will come from a backend fetch
   const x: number[] = [1, 2, 3];
   const lines: Approximation[] = [
@@ -23,9 +24,20 @@ const Index: NextPage<{}> = () => {
   ];
   return (
     <React.Fragment>
-      <Title />
+      <div className="d-flex justify-content-center mt-2 mb-4">
+        <div className="col-6">
+          <Title />
+        </div>
+        <div className="col-6">
+          <SelectBox
+            show={show}
+            setShow={setShow}
+            names={lines.map((l) => l.name)}
+          />
+        </div>
+      </div>
       <InputBox />
-      <GraphBox x={x} lines={lines} />
+      <GraphBox x={x} lines={lines} show={show} />
     </React.Fragment>
   );
 };

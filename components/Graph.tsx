@@ -14,7 +14,6 @@ interface GraphProps {
 
 const Graph: FunctionComponent<GraphProps> = ({ x, lines, ...props }) => {
   const options = {
-    chart: { group: "charts", id: props.id },
     title: { text: props.title },
     xaxis: { x },
   };
