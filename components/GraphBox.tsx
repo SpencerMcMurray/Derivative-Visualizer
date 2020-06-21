@@ -19,10 +19,10 @@ const GraphBox: FunctionComponent<GraphBoxPorps> = ({ x, lines, show }) => {
 
   return (
     <div className="d-flex justify-content-center flex-wrap">
-      <div className="col-xl-5 px-auto">
+      <div className="col-xl-5">
         <Graph id="approx" title="Approximations" x={x} lines={approxLines} />
       </div>
-      <div className="col-xl-5 px-auto">
+      <div className="col-xl-5">
         <Graph id="errs" title="Relative Error" x={x} lines={errLines} />
       </div>
     </div>
