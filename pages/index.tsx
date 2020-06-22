@@ -1,30 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { NextPage } from "next";
-import { Line } from "../public/static/helpers/interfaces";
-import Graph from "../components/Graph";
+import { Approximation } from "../public/static/helpers/interfaces";
 import GraphBox from "../components/GraphBox";
 import Title from "../components/Title";
 import InputBox from "../components/InputBox";
+import SelectBox from "../components/SelectBox";
 
 const Index: NextPage<{}> = () => {
-  // TODO: These 3 consts will come from a backend fetch
+  const [show, setShow] = useState("");
+  // TODO: These consts will come from a backend fetch
   const x: number[] = [1, 2, 3];
-  const approxs: Line[] = [
-    { name: "Approx A", yPoints: [4, 3, 2] },
-    { name: "Approx B", yPoints: [5, 4, 7] },
-  ];
-  const errs: Line[] = [
-    { name: "Relative Error A", yPoints: [14, 2, 0] },
-    { name: "Relative Error B", yPoints: [1, 1, 4] },
+  const lines: Approximation[] = [
+    {
+      name: "Approx A",
+      y: [4, 3, 2],
+      error: [14, 2, 0],
+    },
+    {
+      name: "Approx B",
+      y: [3, 4, 3],
+      error: [0, 15, 4],
+    },
   ];
   return (
     <React.Fragment>
-      <Title />
+      <div className="d-flex justify-content-center mt-2 mb-4">
+        <div className="col-6">
+          <Title />
+        </div>
+        <div className="col-6">
+          <SelectBox
+            show={show}
+            setShow={setShow}
+            names={lines.map((l) => l.name)}
+          />
+        </div>
+      </div>
       <InputBox />
-      <GraphBox>
-        <Graph id="approx" title="Approximations" x={x} lines={approxs} />
-        <Graph id="rel-err" title="Relative Errors" x={x} lines={errs} />
-      </GraphBox>
+      <GraphBox x={x} lines={lines} show={show} />
     </React.Fragment>
   );
 };
