@@ -9,19 +9,21 @@ interface SelectBoxProps {
 
 const SelectBox: FunctionComponent<SelectBoxProps> = (props) => {
   return (
-    <Form.Group controlId="select-graphs">
-      <Form.Label>Select which graph to show</Form.Label>
-      <Form.Control
-        as="select"
-        value={props.show}
-        onChange={(evt) => props.setShow(evt.target.value)}
-      >
-        <option value="">All</option>
-        {props.names.map((name, idx) => (
-          <option key={idx}>{name}</option>
-        ))}
-      </Form.Control>
-    </Form.Group>
+    <div className="container">
+      <Form.Group controlId="select-graphs">
+        <Form.Label>Select which graph to show</Form.Label>
+        <Form.Control
+          as="select"
+          value={props.show}
+          onChange={(evt) => props.setShow(evt.target.value)}
+        >
+          <option value="">All</option>
+          {props.names.map((name, idx) => (
+            <option key={idx}>{name}</option>
+          ))}
+        </Form.Control>
+      </Form.Group>
+    </div>
   );
 };
 

@@ -24,19 +24,13 @@ const Index: NextPage<{}> = () => {
   ];
   return (
     <React.Fragment>
-      <div className="d-flex justify-content-center mt-2 mb-4">
-        <div className="col-6">
-          <Title />
-        </div>
-        <div className="col-6">
-          <SelectBox
-            show={show}
-            setShow={setShow}
-            names={lines.map((l) => l.name)}
-          />
-        </div>
-      </div>
+      <Title />
       <InputBox />
+      <SelectBox
+        show={show}
+        setShow={setShow}
+        names={lines.map((l) => l.name)}
+      />
       <GraphBox x={x} lines={lines} show={show} />
     </React.Fragment>
   );
