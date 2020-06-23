@@ -24,6 +24,8 @@ const Graph: FunctionComponent<GraphProps> = ({ x, lines, ...props }) => {
       type="area"
       width={props.width || 500}
       height={props.height || 500}
+      className="col-xl-5"
+      align="center"
     />
   );
 };

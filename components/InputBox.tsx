@@ -14,7 +14,7 @@ const InputBox: FunctionComponent<{}> = () => {
   };
 
   return (
-    <div className="container ml-4 my-4 p-2 border rounded">
+    <div className="container mt-4 mb-2 p-2 border rounded">
       <Form.Row>
         <Form.Group as={Col} controlId="fcn">
           <Form.Label>Function</Form.Label>
