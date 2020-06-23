@@ -25,12 +25,14 @@ const Index: NextPage<{}> = () => {
   return (
     <React.Fragment>
       <Title />
-      <InputBox />
-      <SelectBox
-        show={show}
-        setShow={setShow}
-        names={lines.map((l) => l.name)}
-      />
+      <div className="container">
+        <InputBox />
+        <SelectBox
+          show={show}
+          setShow={setShow}
+          names={lines.map((l) => l.name)}
+        />
+      </div>
       <GraphBox x={x} lines={lines} show={show} />
     </React.Fragment>
   );
