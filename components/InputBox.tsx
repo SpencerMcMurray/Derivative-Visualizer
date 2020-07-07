@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { Form, Col, Button } from "react-bootstrap";
+import { validateInput } from "../public/static/helpers/validation";
 
 const InputBox: FunctionComponent<{}> = () => {
   const [f, setF] = useState("x^2");
@@ -9,7 +10,16 @@ const InputBox: FunctionComponent<{}> = () => {
   const [pts, setPts] = useState("4");
 
   const handleSubmit = () => {
-    const data = { f, n, start, stop, pts };
+    const data = {
+      fcn: f,
+      order: n,
+      xStart: start,
+      xStop: stop,
+      xPts: pts,
+    };
+    if (!validateInput(data)) {
+      // Invalid input
+    }
     console.log(data);
   };
 
