@@ -1,7 +1,10 @@
 import React, { FunctionComponent, useState } from "react";
 import { Form, Col, Button } from "react-bootstrap";
+import { validateInput } from "../public/static/helpers/validation";
 
-const InputBox: FunctionComponent<{}> = () => {
+const InputBox: FunctionComponent<{
+  setErrs: (errs: string[]) => void;
+}> = ({ setErrs }) => {
   const [f, setF] = useState("x^2");
   const [n, setN] = useState("1");
   const [start, setStart] = useState("0");
@@ -9,7 +12,19 @@ const InputBox: FunctionComponent<{}> = () => {
   const [pts, setPts] = useState("4");
 
   const handleSubmit = () => {
-    const data = { f, n, start, stop, pts };
+    const data = {
+      fcn: f,
+      order: n,
+      xStart: start,
+      xStop: stop,
+      xPts: pts,
+    };
+    const errs = validateInput(data);
+    if (errs.length > 0) {
+      setErrs(errs);
+      return;
+    }
+    // Send to backend
     console.log(data);
   };
 
@@ -22,6 +37,7 @@ const InputBox: FunctionComponent<{}> = () => {
             onChange={(evt) => setF(evt.target.value)}
             type="text"
             placeholder="Enter f(x)..."
+            value={f}
           />
           <Form.Text className="text-muted">
             This should be n-differentiable
@@ -34,6 +50,7 @@ const InputBox: FunctionComponent<{}> = () => {
             onChange={(evt) => setN(evt.target.value)}
             type="text"
             placeholder="Enter n..."
+            value={n}
           />
         </Form.Group>
       </Form.Row>
@@ -46,6 +63,7 @@ const InputBox: FunctionComponent<{}> = () => {
             onChange={(evt) => setStart(evt.target.value)}
             type="text"
             placeholder="Enter start..."
+            value={start}
           />
         </Form.Group>
 
@@ -55,6 +73,7 @@ const InputBox: FunctionComponent<{}> = () => {
             onChange={(evt) => setStop(evt.target.value)}
             type="text"
             placeholder="Enter stop..."
+            value={stop}
           />
           <Form.Text className="text-muted">
             This value is exclusive in the range
@@ -67,6 +86,7 @@ const InputBox: FunctionComponent<{}> = () => {
             onChange={(evt) => setPts(evt.target.value)}
             type="text"
             placeholder="Enter point count..."
+            value={pts}
           />
         </Form.Group>
       </Form.Row>
