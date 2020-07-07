@@ -18,15 +18,12 @@ export const validateInput = (input: validationInput): string[] => {
   if (
     isNaN(orderNum) ||
     orderNum % 1 !== 0 ||
-    (orderNum <= 0 && orderNum > ORDER_CAP)
+    orderNum <= 0 ||
+    orderNum > ORDER_CAP
   )
     errs.push(`Given order of ${order} is either too large or invalid`);
   const xPtsNum = parseFloat(xPts);
-  if (
-    isNaN(xPtsNum) ||
-    xPtsNum % 1 !== 0 ||
-    (xPtsNum <= 0 && xPtsNum > PTS_CAP)
-  )
+  if (isNaN(xPtsNum) || xPtsNum % 1 !== 0 || xPtsNum <= 0 || xPtsNum > PTS_CAP)
     errs.push(`Given point count of ${xPts} is either too large or invalid`);
 
   const xStartNum = parseFloat(xStart);
