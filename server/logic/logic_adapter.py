@@ -16,16 +16,10 @@ def newton(expr, value, n):
 def getAllDerivatives(formula, v, n):
     trueValue = true(formula, v, n)
     newtonValue = newton(formula, v, n)
-    return {
-        'x': v,
-        'true': {
-            'val': float(trueValue)
-        },
-        'newton': {
-            'val': float(newtonValue),
-            'relErr': float(abs((newtonValue - trueValue)/trueValue))
-        }
-    }
+    t = float(trueValue)
+    nt, nt_err = float(newtonValue), float(
+        abs((newtonValue - trueValue)/trueValue))
+    return t, nt, nt_err
 
 
 def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str, points: str):
@@ -38,5 +32,10 @@ def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str, points
     points = int(points)
 
     interval = np.linspace(start, end, points)
-    res = [getAllDerivatives(formula, i, n) for i in interval]
-    return res
+    t_list, nt_list, nt_err_list = [], [], []
+    for x in interval:
+        t, nt, nt_err = getAllDerivatives(formula, x, n)
+        t_list.append(t)
+        nt_list.append(nt)
+        nt_err_list.append(nt_err)
+    return t_list, nt_list, nt_err_list, interval
