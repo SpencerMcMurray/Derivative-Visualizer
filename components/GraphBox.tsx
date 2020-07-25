@@ -9,7 +9,12 @@ interface GraphBoxPorps {
   show: string;
 }
 
-const GraphBox: FunctionComponent<GraphBoxPorps> = ({ x, approxs, show }) => {
+const GraphBox: FunctionComponent<GraphBoxPorps> = ({
+  x,
+  y,
+  approxs,
+  show,
+}) => {
   let approxLines = approxs.map((a) => ({ name: a.name, data: a.y }));
   let errLines = approxs.map((a) => ({ name: a.name, data: a.error }));
 
@@ -17,6 +22,7 @@ const GraphBox: FunctionComponent<GraphBoxPorps> = ({ x, approxs, show }) => {
     approxLines = approxLines.filter((a) => a.name === show);
     errLines = errLines.filter((a) => a.name === show);
   }
+  approxLines.push({ name: "True Derivative", data: y });
 
   return (
     <div className="container-fluid mx-auto row justify-content-center flex-wrap">
