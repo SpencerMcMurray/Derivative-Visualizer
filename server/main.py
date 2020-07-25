@@ -10,20 +10,21 @@ def test():
     return jsonify({"Hello": "world"})
 
 
-@app.route("/derivatives")
+@app.route("/derivatives", methods=["POST"])
 def derivatives():
-    expr = request.args.get("expr")
-    n = request.args.get("n")
-    start = request.args.get("start")
-    end = request.args.get("end")
-    points = request.args.get('points')
+    expr = request.form["expr"]
+    n = request.form["n"]
+    start = request.form["start"]
+    end = request.form["end"]
+    points = request.form['points']
 
     try:
-        res = logic_adapter.getAllDerivativesForInterval(expr, start, end, n, points)
+        res = logic_adapter.getAllDerivativesForInterval(
+            expr, start, end, n, points)
         return jsonify({'success': True, 'result': res})
     except Exception:
         traceback.print_exc()
-        return jsonify({'success': False})
+        return jsonify({'success': False}), 400
 
 
 if __name__ == "__main__":
