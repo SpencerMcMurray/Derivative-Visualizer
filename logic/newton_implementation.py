@@ -27,7 +27,7 @@ def nth_derivative (f, x, n):
             _const = float_type(choose(n, k))
         else: 
             _const = float_type(-1 * choose(n, k))
-        summand = np.multiply(_const, f(np.sum(float_type(x), np.multiply(float_type(k), h))))
-        _sum = np.sum(_sum, summand)
-    h_to_n = np.polyval(np.poly1d([1].extend([0 for i in range(n - 1)])), h)
+        summand = np.multiply(_const, f(np.sum([float_type(x), np.multiply(float_type(k), h)])))
+        _sum = np.add(_sum, summand)
+    h_to_n = np.polyval(np.poly1d([1] + [0 for i in range(n - 1)]), h)
     return np.multiply(np.divide(float_type(1), h_to_n), _sum)
