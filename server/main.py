@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from logic import TrueValue
+from logic import logic_adapter
 import traceback
 
 app = Flask(__name__)
@@ -10,20 +10,20 @@ def test():
     return jsonify({"Hello": "world"})
 
 
-@app.route("/trueValue")
-def trueValue():
+@app.route("/derivatives")
+def derivatives():
     expr = request.args.get("expr")
-    var = request.args.get("var")
     n = request.args.get("n")
-    value = request.args.get("value")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    points = request.args.get('points')
 
     try:
-        result = float(
-            TrueValue.nth_derivative_from_string(expr, var, n, value))
-        return jsonify({"success": True, "result": result})
+        res = logic_adapter.getAllDerivativesForInterval(expr, start, end, n, points)
+        return jsonify({'success': True, 'result': res})
     except Exception:
         traceback.print_exc()
-        return jsonify({"success": False})
+        return jsonify({'success': False})
 
 
 if __name__ == "__main__":

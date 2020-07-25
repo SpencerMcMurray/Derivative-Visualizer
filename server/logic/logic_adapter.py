@@ -28,14 +28,15 @@ def getAllDerivatives(formula, v, n):
     }
 
 
-def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str):
+def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str, points: str):
     transformations = (standard_transformations +
                        (implicit_multiplication_application,))
     formula = parse_expr(expr, transformations=transformations)
     n = int(n)
     start = float(start)
     end = float(end)
+    points = int(points)
 
-    interval = np.linspace(start, end)
+    interval = np.linspace(start, end, points)
     res = [getAllDerivatives(formula, i, n) for i in interval]
     return res
