@@ -1,4 +1,5 @@
 from . import TrueValue, newton_implementation
+import numpy as np
 from sympy import symbols
 from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application
 
@@ -12,15 +13,11 @@ def newton(expr, value, n):
     return newton_implementation.nth_derivative(f, value, n)
 
 
-def getAll(expr: str, value: str, n: str):
-    transformations = (standard_transformations +
-                       (implicit_multiplication_application,))
-    formula = parse_expr(expr, transformations=transformations)
-    v = float(value)
-    n = int(n)
+def getAllDerivatives(formula, v, n):
     trueValue = true(formula, v, n)
     newtonValue = newton(formula, v, n)
     return {
+        'x': v,
         'true': {
             'val': float(trueValue)
         },
@@ -29,3 +26,16 @@ def getAll(expr: str, value: str, n: str):
             'relErr': float(abs((newtonValue - trueValue)/trueValue))
         }
     }
+
+
+def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str):
+    transformations = (standard_transformations +
+                       (implicit_multiplication_application,))
+    formula = parse_expr(expr, transformations=transformations)
+    n = int(n)
+    start = float(start)
+    end = float(end)
+
+    interval = np.linspace(start, end)
+    res = [getAllDerivatives(formula, i, n) for i in interval]
+    return res
