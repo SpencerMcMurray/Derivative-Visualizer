@@ -10,7 +10,7 @@ def test():
     return jsonify({"Hello": "world"})
 
 
-@app.route("/derivatives"])
+@app.route("/derivatives")
 def derivatives():
     expr = request.args.get("expr")
     n = request.args.get("n")
@@ -32,4 +32,4 @@ def derivatives():
 
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
