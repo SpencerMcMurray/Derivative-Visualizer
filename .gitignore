@@ -2,3 +2,4 @@
 /.next
 __pycache__
 .vscode
+.env.local

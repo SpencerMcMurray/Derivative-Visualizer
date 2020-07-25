@@ -10,20 +10,10 @@ import Errors from "../components/Errors";
 const Index: NextPage<{}> = () => {
   const [show, setShow] = useState("");
   const [errs, setErrs] = useState([]);
+  const [x, setX] = useState<number[]>([]);
+  const [y, setY] = useState<number[]>([]);
+  const [approxs, setApproxs] = useState<Approximation[]>([]);
   // TODO: These consts will come from a backend fetch
-  const x: number[] = [1, 2, 3];
-  const lines: Approximation[] = [
-    {
-      name: "Approx A",
-      y: [4, 3, 2],
-      error: [14, 2, 0],
-    },
-    {
-      name: "Approx B",
-      y: [3, 4, 3],
-      error: [0, 15, 4],
-    },
-  ];
   return (
     <React.Fragment>
       <Title />
@@ -31,14 +21,19 @@ const Index: NextPage<{}> = () => {
         <Errors errs={errs} />
       </div>
       <div className="container">
-        <InputBox setErrs={setErrs} />
+        <InputBox
+          setX={setX}
+          setY={setY}
+          setApproxs={setApproxs}
+          setErrs={setErrs}
+        />
         <SelectBox
           show={show}
           setShow={setShow}
-          names={lines.map((l) => l.name)}
+          names={approxs.map((a) => a.name)}
         />
       </div>
-      <GraphBox x={x} lines={lines} show={show} />
+      <GraphBox x={x} y={y} approxs={approxs} show={show} />
     </React.Fragment>
   );
 };
