@@ -10,14 +10,15 @@ def test():
     return jsonify({"Hello": "world"})
 
 
-@app.route("/derivative")
-def trueValue():
+@app.route("/derivatives")
+def derivatives():
     expr = request.args.get("expr")
     n = request.args.get("n")
-    value = request.args.get("value")
+    start = request.args.get("start")
+    end = request.args.get("end")
 
     try:
-        res = logic_adapter.getAll(expr, value, n)
+        res = logic_adapter.getAllDerivativesForInterval(expr, start, end, n)
         return jsonify({'success': True, 'result': res})
     except Exception:
         traceback.print_exc()
