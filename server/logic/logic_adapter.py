@@ -6,19 +6,26 @@ from sympy.parsing.sympy_parser import parse_expr, standard_transformations, imp
 def true(expr, value, n):
     return TrueValue.nth_derivative(expr, symbols('x'), n, value)
 
+
 def newton(expr, value, n):
-    f = lambda x: expr.subs(symbols('x'), x)
+    def f(x): return expr.subs(symbols('x'), x)
     return newton_implementation.nth_derivative(f, value, n)
+
 
 def getAll(expr: str, value: str, n: str):
     transformations = (standard_transformations +
                        (implicit_multiplication_application,))
-    formula = parse_expr(expr, transformations = transformations)
+    formula = parse_expr(expr, transformations=transformations)
     v = float(value)
     n = int(n)
     trueValue = true(formula, v, n)
     newtonValue = newton(formula, v, n)
     return {
-        'trueValue': trueValue,
-        'newton': newtonValue
+        'trueValue': {
+            'val': float(trueValue)
+        },
+        'newton': {
+            'val': float(newtonValue),
+            'relErr': float(abs((newtonValue - trueValue)/trueValue))
+        }
     }
