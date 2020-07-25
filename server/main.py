@@ -16,9 +16,10 @@ def derivatives():
     n = request.args.get("n")
     start = request.args.get("start")
     end = request.args.get("end")
+    points = request.args.get('points')
 
     try:
-        res = logic_adapter.getAllDerivativesForInterval(expr, start, end, n)
+        res = logic_adapter.getAllDerivativesForInterval(expr, start, end, n, points)
         return jsonify({'success': True, 'result': res})
     except Exception:
         traceback.print_exc()
