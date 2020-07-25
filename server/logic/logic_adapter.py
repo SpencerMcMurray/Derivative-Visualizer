@@ -21,7 +21,7 @@ def getAll(expr: str, value: str, n: str):
     trueValue = true(formula, v, n)
     newtonValue = newton(formula, v, n)
     return {
-        'trueValue': {
+        'true': {
             'val': float(trueValue)
         },
         'newton': {
