@@ -4,18 +4,25 @@ import { Approximation } from "../public/static/helpers/interfaces";
 
 interface GraphBoxPorps {
   x: number[];
-  lines: Approximation[];
+  y: number[];
+  approxs: Approximation[];
   show: string;
 }
 
-const GraphBox: FunctionComponent<GraphBoxPorps> = ({ x, lines, show }) => {
-  let approxLines = lines.map((l) => ({ name: l.name, data: l.y }));
-  let errLines = lines.map((l) => ({ name: l.name, data: l.error }));
+const GraphBox: FunctionComponent<GraphBoxPorps> = ({
+  x,
+  y,
+  approxs,
+  show,
+}) => {
+  let approxLines = approxs.map((a) => ({ name: a.name, data: a.y }));
+  let errLines = approxs.map((a) => ({ name: a.name, data: a.error }));
 
   if (show.length > 0) {
-    approxLines = approxLines.filter((l) => l.name === show);
-    errLines = errLines.filter((l) => l.name === show);
+    approxLines = approxLines.filter((a) => a.name === show);
+    errLines = errLines.filter((a) => a.name === show);
   }
+  approxLines.push({ name: "True Derivative", data: y });
 
   return (
     <div className="container-fluid mx-auto row justify-content-center flex-wrap">
