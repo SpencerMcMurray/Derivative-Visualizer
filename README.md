@@ -1,10 +1,13 @@
-# Derivative Visualizer
+# [Derivative Visualizer](https://derivative-visualizer.vercel.app/)
 
 This project is a visualizer for higher order derivative approximations.
 
 We will be using Python to create a backend which can calculate and send
 the approximation and the true derivative of a given function to the frontend,
 where we visualize our results.
+
+Note: we use Heroku free tier as a backend host, so making requests on the hosted
+site may take a moment.
 
 ## Examples
 
