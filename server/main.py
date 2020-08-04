@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from logic import logic_adapter
 import traceback
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -34,4 +35,6 @@ def derivatives():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = os.environ.get('PORT')
+    port = 5000 if port is None else port
+    app.run(port=port)
