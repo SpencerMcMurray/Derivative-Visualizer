@@ -33,4 +33,4 @@ npm run client
 npm run server
 ```
 
-Finally go to localhost:5000 to try it out
+Finally go to localhost:3000 to try it out
