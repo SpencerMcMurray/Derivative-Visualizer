@@ -13,6 +13,7 @@ export interface OutputData {
   x: number[];
   y: number[];
   approxs: Approximation[];
+  success: boolean;
 }
 
 export const fetchData = async (

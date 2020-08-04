@@ -13,7 +13,6 @@ const Index: NextPage<{}> = () => {
   const [x, setX] = useState<number[]>([]);
   const [y, setY] = useState<number[]>([]);
   const [approxs, setApproxs] = useState<Approximation[]>([]);
-  // TODO: These consts will come from a backend fetch
   return (
     <React.Fragment>
       <Title />
