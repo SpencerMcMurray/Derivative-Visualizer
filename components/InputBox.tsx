@@ -35,9 +35,13 @@ const InputBox: FunctionComponent<InputBoxProps> = ({ setErrs, ...props }) => {
     const output = (await fetchData(data, setErrs).then(
       (res) => (res as any).data
     )) as OutputData;
-    props.setX(output.x);
-    props.setY(output.y);
-    props.setApproxs(output.approxs);
+    if (output.success) {
+      props.setX(output.x);
+      props.setY(output.y);
+      props.setApproxs(output.approxs);
+    } else {
+      setErrs(["Backend could not process request, please ensure validity"]);
+    }
   };
 
   return (
