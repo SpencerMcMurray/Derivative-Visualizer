@@ -1,1 +1,4 @@
 Flask==1.1.2
+Flask-Cors==3.0.8
+sympy==1.6.1
+numpy==1.19.1

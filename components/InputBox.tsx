@@ -1,23 +1,30 @@
 import React, { FunctionComponent, useState } from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import { validateInput } from "../public/static/helpers/validation";
+import { fetchData, OutputData } from "../public/static/helpers/request";
+import { Approximation } from "../public/static/helpers/interfaces";
 
-const InputBox: FunctionComponent<{
+interface InputBoxProps {
   setErrs: (errs: string[]) => void;
-}> = ({ setErrs }) => {
-  const [f, setF] = useState("x^2");
+  setX: (x: number[]) => void;
+  setY: (y: number[]) => void;
+  setApproxs: (a: Approximation[]) => void;
+}
+
+const InputBox: FunctionComponent<InputBoxProps> = ({ setErrs, ...props }) => {
+  const [f, setF] = useState("x**2");
   const [n, setN] = useState("1");
-  const [start, setStart] = useState("0");
+  const [start, setStart] = useState("1");
   const [stop, setStop] = useState("5");
   const [pts, setPts] = useState("4");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const data = {
-      fcn: f,
-      order: n,
-      xStart: start,
-      xStop: stop,
-      xPts: pts,
+      expr: f,
+      n: n,
+      start: start,
+      end: stop,
+      points: pts,
     };
     const errs = validateInput(data);
     if (errs.length > 0) {
@@ -25,7 +32,16 @@ const InputBox: FunctionComponent<{
       return;
     }
     // Send to backend
-    console.log(data);
+    const output = (await fetchData(data, setErrs).then(
+      (res) => (res as any).data
+    )) as OutputData;
+    if (output.success) {
+      props.setX(output.x);
+      props.setY(output.y);
+      props.setApproxs(output.approxs);
+    } else {
+      setErrs(["Backend could not process request, please ensure validity"]);
+    }
   };
 
   return (

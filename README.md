@@ -1,10 +1,21 @@
-# Derivative Visualizer
+# [Derivative Visualizer](https://derivative-visualizer.vercel.app/)
 
 This project is a visualizer for higher order derivative approximations.
 
 We will be using Python to create a backend which can calculate and send
 the approximation and the true derivative of a given function to the frontend,
 where we visualize our results.
+
+Note: we use Heroku free tier as a backend host, so making requests on the hosted
+site may take a moment.
+
+## Examples
+
+With low derivative order, the accurracy is quite high and produces great results:
+![Good Ex](https://i.imgur.com/yZPBB9O.png)
+
+However with increased order, we can see more and more inaccuracies:
+![Badish Ex](https://i.imgur.com/nXx2H2B.png)
 
 ## Getting started
 
@@ -15,10 +26,11 @@ pip install -r requirements.txt
 npm i
 ```
 
-Then to run the client or the server run either
+The use the following commands on individual command line instances to run the client and server
 
 ```
 npm run client
-OR
 npm run server
 ```
+
+Finally go to localhost:3000 to try it out

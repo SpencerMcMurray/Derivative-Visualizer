@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, request
-from logic import TrueValue
+from logic import logic_adapter
 import traceback
+from flask_cors import CORS
+import os
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 @app.route("/")
@@ -10,21 +13,26 @@ def test():
     return jsonify({"Hello": "world"})
 
 
-@app.route("/trueValue")
-def trueValue():
+@app.route("/derivatives")
+def derivatives():
     expr = request.args.get("expr")
-    var = request.args.get("var")
     n = request.args.get("n")
-    value = request.args.get("value")
+    start = request.args.get("start")
+    end = request.args.get("end")
+    points = request.args.get('points')
 
     try:
-        result = float(
-            TrueValue.nth_derivative_from_string(expr, var, n, value))
-        return jsonify({"success": True, "result": result})
+        t, nt, nt_err, intvl = logic_adapter.getAllDerivativesForInterval(
+            expr, start, end, n, points)
+        return jsonify({'success': True,
+                        'x': [x for x in intvl],
+                        'y': t,
+                        'approxs': [{'name': "Newton's Method", "y": nt, "error": nt_err}]
+                        })
     except Exception:
         traceback.print_exc()
-        return jsonify({"success": False})
+        return jsonify({'success': False}), 400
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
