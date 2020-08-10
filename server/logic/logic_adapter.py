@@ -1,4 +1,4 @@
-from . import TrueValue, newton_implementation
+from . import TrueValue, newton_implementation, Lanczo
 import numpy as np
 from sympy import symbols
 from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application
@@ -12,6 +12,10 @@ def newton(expr, value, n):
     def f(x): return expr.subs(symbols('x'), x)
     return newton_implementation.nth_derivative(f, value, n)
 
+def lanczo(expr, value, n):
+    def f(x): return expr.subs(symbols('x'), x)
+    ys = [Lanczo.Lanczo(f, x, n) for x in value]
+    return ys
 
 def getAllDerivatives(formula, v, n):
     trueValue = true(formula, v, n)
