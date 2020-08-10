@@ -21,6 +21,8 @@ def choose(n, k):
 def nth_derivative (f, x, n):
     x = float_type(x)
     h = np.multiply(np.sqrt(np.finfo(float_type).eps), x)
+    if x == 0:
+        h = float_type(np.power(10, -5))
     _sum = float_type(0)
     for k in range(n+1):
         if (k + n) % 2 == 0:
