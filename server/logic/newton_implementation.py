@@ -29,11 +29,19 @@ def nth_derivative (f, x, n):
             _const = float_type(-1 * choose(n, k))
         summand = np.multiply(_const, f(np.add(float_type(x), np.multiply(float_type(k), h))))
         _sum = np.add(_sum, summand)
+    print("Sum", _sum)
     h_to_n = np.power(h, n)
     print(h)
     return np.multiply(np.divide(float_type(1), h_to_n), _sum)
 
+def new_nth_derivative(f,x,n):
+    h = np.multiply(np.sqrt(np.finfo(float_type).eps), float_type(x))
+    s = 0
+    for k in range(n+1):
+        s += ((-1)**(k+n))*choose(n,k)*f(x+k*h)
+    return s/h**n
 
 if __name__ == "__main__":
     # debug code
-    print(nth_derivative(lambda x: (x**3), 5, 1))
+    print(nth_derivative(lambda x: (x**3), 5, 2))
+    print(new_nth_derivative(lambda x: np.sin(x), np.pi, 3))
