@@ -17,31 +17,12 @@ def choose(n, k):
     else:
         return 0
 
-
-def nth_derivative (f, x, n):
-    x = float_type(x)
-    #h = np.multiply(np.sqrt(np.finfo(float_type).eps), x)
-    h = float_type(np.float_power(10,-5))
-    _sum = float_type(0)
-    for k in range(n+1):
-        if (k + n) % 2 == 0:
-            _const = float_type(choose(n, k))
-        else: 
-            _const = float_type(-1 * choose(n, k))
-        summand = np.multiply(_const, f(np.add(float_type(x), np.multiply(float_type(k), h))))
-        _sum = np.add(_sum, summand)
-    h_to_n = np.power(h, n)
-    print(h)
-    return np.multiply(np.divide(float_type(1), h_to_n), _sum)
-
-def new_nth_derivative(f,x,n):
-    h = 0.0001
+def nth_derivative(f,x,n):
     s = 0
+    h = np.float_power(10,-3)
     for k in range(n+1):
-        s += ((-1)**(k+n))*choose(n,k)*f(x+k*h)
-    return s/np.power(h,n)
-
+        s += (-1)**(k+n)*choose(n,k)*f(x+k*h)
+    return s/(h**n)
 if __name__ == "__main__":
     # debug code
-    print(nth_derivative(lambda x: (np.cos(x)), np.pi/2, 1))
-    print(new_nth_derivative(lambda x: (np.cos(x)), np.pi/2, 1))
+    print(nth_derivative(lambda x: (x**4), 2, 3))
