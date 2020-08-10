@@ -10,7 +10,7 @@ def true(expr, value, n):
 
 def newton(expr, value, n):
     def f(x): return expr.subs(symbols('x'), x)
-    return newton_implementation.nth_derivative(f, value, n)
+    return newton_implementation.new_nth_derivative(f, value, n)
 
 
 def getAllDerivatives(formula, v, n):
