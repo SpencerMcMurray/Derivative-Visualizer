@@ -32,7 +32,7 @@ def derivatives():
                                 "y": dt[0], "error": dt_err[0]},
                             {'name': "Lanczo's Method",
                                 "y": dt[1], "error": dt_err[1]},
-                            {'name': "Finite Difference Method",
+                            {'name': "Stencil Method",
                                 "y": dt[2], "error": dt_err[2]}
                         ]
                         })
