@@ -13,6 +13,10 @@ def true(expr, value, n):
 def get_rel_err(v, t):
     return float(v), float(abs((v - t)/t))
 
+def lanczo(expr, value, n):
+    def f(x): return expr.subs(symbols('x'), x)
+    ys = [Lanczo.Lanczo(f, x, n) for x in value]
+    return ys
 
 def getAllDerivatives(formula, v, n):
     trueValue = true(formula, v, n)
