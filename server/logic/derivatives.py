@@ -1,4 +1,7 @@
 import numpy as np
+from scipy.special import legendre
+from scipy.integrate import quad
+
 
 float_type = np.float32
 
@@ -18,32 +21,26 @@ def choose(n, k):
     else:
         return 0
 
+def integral(u, f, x, h, n):
+    leg = legendre(n)
+    l = leg(u)
+    return f(x+h*u)*l
 
 def lanczo(f, x, n):
+    leg = legendre(n)
+    h = np.float_power(10,-3)
+    ans = np.math.factorial(2*n+1)/(2**(n+1)*np.math.factorial(n)*h**n)
+    q = quad(integral,-1.0,1.0, args = (f,x,h,n))
+    ans*=q[0]
+    return ans
+
+
+def newton(f, x, n):
     s = 0
     h = np.float_power(10, -3)
     for k in range(n+1):
         s += (-1)**(k+n)*choose(n, k)*f(x+k*h)
     return s/(h**n)
-
-
-def newton(f, x, n):
-    x = float_type(x)
-    h = np.multiply(np.sqrt(np.finfo(float_type).eps), x)
-    if x == 0:
-        h = float_type(np.power(10, -5))
-    _sum = float_type(0)
-    for k in range(n+1):
-        if (k + n) % 2 == 0:
-            _const = float_type(choose(n, k))
-        else:
-            _const = float_type(-1 * choose(n, k))
-        summand = np.multiply(
-            _const, f(np.add(float_type(x), np.multiply(float_type(k), h))))
-        _sum = np.add(_sum, summand)
-    h_to_n = np.power(h, n)
-    print(h)
-    return np.multiply(np.divide(float_type(1), h_to_n), _sum)
 
 
 if __name__ == "__main__":
