@@ -3,6 +3,8 @@ import numpy as np
 from sympy import symbols
 from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application
 
+NUM_METHODS = 2
+
 
 def true(expr, value, n):
     return TrueValue.nth_derivative(expr, symbols('x'), n, value)
@@ -35,10 +37,13 @@ def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str, points
 
     interval = np.linspace(start, end, points)
     t_list, dt_list, dt_err_list = [], [], []
+    for i in range(NUM_METHODS):
+        dt_list.append([])
+        dt_err_list.append([])
     for x in interval:
         t, vals = getAllDerivatives(formula, x, n)
         t_list.append(t)
-        for d in vals:
-            dt_list.append(d[0])
-            dt_err_list.append(d[1])
+        for i, d in enumerate(vals):
+            dt_list[i].append(d[0])
+            dt_err_list[i].append(d[1])
     return t_list, dt_list, dt_err_list, interval
