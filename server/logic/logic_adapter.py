@@ -20,10 +20,13 @@ def lanczo(expr, value, n):
 def getAllDerivatives(formula, v, n):
     trueValue = true(formula, v, n)
     newtonValue = newton(formula, v, n)
+    lanczoValue = lanczo(formula, v, n)
     t = float(trueValue)
     nt, nt_err = float(newtonValue), float(
         abs((newtonValue - trueValue)/trueValue))
-    return t, nt, nt_err
+    lanczo, lanczo_err = float(lanczoValue), float(
+        abs((lanczoValue - trueValue)/trueValue))
+    return t, nt, nt_err, lanczo, lanczo_err
 
 
 def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str, points: str):
@@ -36,10 +39,12 @@ def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str, points
     points = int(points)
 
     interval = np.linspace(start, end, points)
-    t_list, nt_list, nt_err_list = [], [], []
+    t_list, nt_list, nt_err_list, lanczo_list, lanczo_err_list = [], [], [], [], []
     for x in interval:
-        t, nt, nt_err = getAllDerivatives(formula, x, n)
+        t, nt, nt_err, lanczo, lanczo_err = getAllDerivatives(formula, x, n)
         t_list.append(t)
         nt_list.append(nt)
         nt_err_list.append(nt_err)
-    return t_list, nt_list, nt_err_list, interval
+        lanczo_list.append(lanczo)
+        lanczo_err_list.append(lanczo_err)
+    return t_list, nt_list, nt_err_list, lanczo_list, lanczo_err_list, interval
