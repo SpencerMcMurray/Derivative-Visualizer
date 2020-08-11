@@ -22,12 +22,17 @@ def derivatives():
     points = request.args.get('points')
 
     try:
-        t, nt, nt_err, intvl = logic_adapter.getAllDerivativesForInterval(
+        t, dt, dt_err, intvl = logic_adapter.getAllDerivativesForInterval(
             expr, start, end, n, points)
         return jsonify({'success': True,
                         'x': [x for x in intvl],
                         'y': t,
-                        'approxs': [{'name': "Newton's Method", "y": nt, "error": nt_err}]
+                        'approxs': [
+                            {'name': "Newton's Method",
+                                "y": dt[0], "error": dt_err[0]},
+                            {'name': "Lanczo's Method",
+                                "y": dt[1], "error": dt_err[1]}
+                        ]
                         })
     except Exception:
         traceback.print_exc()
