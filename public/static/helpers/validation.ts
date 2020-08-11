@@ -1,6 +1,6 @@
 import { InputData } from "./request";
 
-const ORDER_CAP = 10;
+const ORDER_CAP = 6;
 const PTS_CAP = 100;
 
 export const validateInput = (input: InputData): string[] => {
