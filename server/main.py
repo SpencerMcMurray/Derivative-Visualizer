@@ -31,7 +31,9 @@ def derivatives():
                             {'name': "Newton's Method",
                                 "y": dt[0], "error": dt_err[0]},
                             {'name': "Lanczo's Method",
-                                "y": dt[1], "error": dt_err[1]}
+                                "y": dt[1], "error": dt_err[1]},
+                            {'name': "Central Differences Method",
+                                "y": dt[2], "error": dt_err[2]}
                         ]
                         })
     except Exception:
