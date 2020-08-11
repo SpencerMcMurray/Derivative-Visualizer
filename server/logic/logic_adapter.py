@@ -3,7 +3,7 @@ import numpy as np
 from sympy import symbols
 from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application
 
-NUM_METHODS = 2
+NUM_METHODS = 3
 
 
 def true(expr, value, n):
@@ -15,7 +15,7 @@ def get_rel_err(v, t):
 
 def lanczo(expr, value, n):
     def f(x): return expr.subs(symbols('x'), x)
-    ys = [Lanczo.Lanczo(f, x, n) for x in value]
+    ys = [derivatives.lanczo(f, x, n) for x in value]
     return ys
 
 def getAllDerivatives(formula, v, n):
@@ -23,10 +23,12 @@ def getAllDerivatives(formula, v, n):
     def f(x): return formula.subs(symbols('x'), x)
 
     newtonValue = derivatives.newton(f, v, n)
-    lanczoValue = derivatives.lanczo(f, v, n)
+    lanczoValue = lanczo(f, v, n)
+    finiteValue = derivatives.finite_difference(f, v, n)
     t = float(trueValue)
     vals = [get_rel_err(newtonValue, trueValue),
-            get_rel_err(lanczoValue, trueValue)]
+            get_rel_err(lanczoValue, trueValue),
+            get_rel_err(finiteValue, trueValue)]
     return t, vals
 
 
