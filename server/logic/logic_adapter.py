@@ -15,6 +15,8 @@ def get_rel_err(v, t):
 
 def lanczo(expr, value, n):
     def f(x): return expr.subs(symbols('x'), x)
+    if not isinstance(value, np.array):
+        value = np.array([value])
     ys = [derivatives.lanczo(f, x, n) for x in value]
     return ys
 
@@ -23,7 +25,7 @@ def getAllDerivatives(formula, v, n):
     def f(x): return formula.subs(symbols('x'), x)
 
     newtonValue = derivatives.newton(f, v, n)
-    lanczoValue = lanczo(f, v, n)
+    lanczoValue = derivatives.lanczo(f, v, n)
     finiteValue = derivatives.finite_difference(f, v, n)
     t = float(trueValue)
     vals = [get_rel_err(newtonValue, trueValue),

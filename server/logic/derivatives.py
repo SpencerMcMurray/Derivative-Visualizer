@@ -55,10 +55,13 @@ def finite_difference(f, x, n):
     L, U = sla.lu(mat, permute_l=True)
     y = sla.solve(L, b)
     v = sla.solve(U, y)
-    if isinstance(x, int):
-        x = np.array([x])
+    x = np.array([x])
     mid = find_middle(x)
  
+    h = np.float_power(10, -3)
+    h_to_n = np.float_power(h, n)
+    return np.sum([np.divide(np.multiply(v[i], f(x[0] + np.multiply(samples[i], h))), h_to_n) for i in range(len(samples))])
+
 
 def lanczo(f, x, n):
     leg = legendre(n)
