@@ -8,6 +8,7 @@ interface GraphProps {
   title: string;
   x: number[];
   lines: Line[];
+  showLabel: boolean;
   width?: number;
   height?: number;
 }
@@ -24,7 +25,7 @@ const Graph: FunctionComponent<GraphProps> = ({ x, lines, ...props }) => {
     dataLabels: { enabled: false },
     tooltip: {
       enabled: true,
-      y: { formatter: (value: any) => null },
+      y: { formatter: props.showLabel ? null : () => null },
       x: { formatter: (idx: number) => `x=${x[idx - 1]}` },
     },
   };

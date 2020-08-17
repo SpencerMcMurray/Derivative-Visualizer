@@ -6,6 +6,7 @@ import Title from "../components/Title";
 import InputBox from "../components/InputBox";
 import SelectBox from "../components/SelectBox";
 import Errors from "../components/Errors";
+import ShowBox from "../components/ShowBox";
 
 const Index: NextPage<{}> = () => {
   const [show, setShow] = useState("");
@@ -13,6 +14,7 @@ const Index: NextPage<{}> = () => {
   const [x, setX] = useState<number[]>([]);
   const [y, setY] = useState<number[]>([]);
   const [approxs, setApproxs] = useState<Approximation[]>([]);
+  const [showLabel, setShowLabel] = useState<boolean>(false);
   return (
     <React.Fragment>
       <Title />
@@ -26,13 +28,30 @@ const Index: NextPage<{}> = () => {
           setApproxs={setApproxs}
           setErrs={setErrs}
         />
-        <SelectBox
-          show={show}
-          setShow={setShow}
-          names={approxs.map((a) => a.name)}
-        />
+        <div className="row">
+          <div className="col">
+            <SelectBox
+              show={show}
+              setShow={setShow}
+              names={approxs.map((a) => a.name)}
+            />
+          </div>
+          <div className="col">
+            <ShowBox
+              label="Show Y Label?"
+              value={showLabel}
+              setter={setShowLabel}
+            />
+          </div>
+        </div>
       </div>
-      <GraphBox x={x} y={y} approxs={approxs} show={show} />
+      <GraphBox
+        x={x}
+        y={y}
+        approxs={approxs}
+        show={show}
+        showLabel={showLabel}
+      />
     </React.Fragment>
   );
 };
