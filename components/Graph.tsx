@@ -15,7 +15,18 @@ interface GraphProps {
 const Graph: FunctionComponent<GraphProps> = ({ x, lines, ...props }) => {
   const options = {
     title: { text: props.title },
-    xaxis: { x },
+    xaxis: {
+      categories: x,
+      labels: {
+        formatter: (value: any) => value,
+      },
+    },
+    dataLabels: { enabled: false },
+    tooltip: {
+      enabled: true,
+      y: { formatter: (value: any) => null },
+      x: { formatter: (idx: number) => `x=${x[idx - 1]}` },
+    },
   };
   return (
     <Chart

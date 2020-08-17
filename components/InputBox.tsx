@@ -92,7 +92,7 @@ const InputBox: FunctionComponent<InputBoxProps> = ({ setErrs, ...props }) => {
             value={stop}
           />
           <Form.Text className="text-muted">
-            This value is exclusive in the range
+            This value is inclusive in the range
           </Form.Text>
         </Form.Group>
 
