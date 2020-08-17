@@ -4,6 +4,9 @@ from sympy import symbols
 from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application
 
 NUM_METHODS = 3
+APPROX_ROUND = 7
+ERROR_ROUND = 10
+XS_ROUND = 3
 
 
 def true(expr, value, n):
@@ -13,12 +16,14 @@ def true(expr, value, n):
 def get_rel_err(v, t):
     return float(v), float(abs((v - t)/t))
 
+
 def lanczo(expr, value, n):
     def f(x): return expr.subs(symbols('x'), x)
     if not isinstance(value, np.array):
         value = np.array([value])
     ys = [derivatives.lanczo(f, x, n) for x in value]
     return ys
+
 
 def getAllDerivatives(formula, v, n):
     trueValue = true(formula, v, n)
@@ -52,6 +57,6 @@ def getAllDerivativesForInterval(expr: str, start: str, end: str, n: str, points
         t, vals = getAllDerivatives(formula, x, n)
         t_list.append(t)
         for i, d in enumerate(vals):
-            dt_list[i].append(d[0])
-            dt_err_list[i].append(d[1])
-    return t_list, dt_list, dt_err_list, interval
+            dt_list[i].append(round(d[0], APPROX_ROUND))
+            dt_err_list[i].append(round(d[1], ERROR_ROUND))
+    return t_list, dt_list, dt_err_list, np.around(interval, XS_ROUND)

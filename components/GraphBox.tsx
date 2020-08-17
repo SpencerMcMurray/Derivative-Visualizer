@@ -7,6 +7,7 @@ interface GraphBoxPorps {
   y: number[];
   approxs: Approximation[];
   show: string;
+  showLabel: boolean;
 }
 
 const GraphBox: FunctionComponent<GraphBoxPorps> = ({
@@ -14,6 +15,7 @@ const GraphBox: FunctionComponent<GraphBoxPorps> = ({
   y,
   approxs,
   show,
+  showLabel,
 }) => {
   let approxLines = approxs.map((a) => ({ name: a.name, data: a.y }));
   let errLines = approxs.map((a) => ({ name: a.name, data: a.error }));
@@ -26,8 +28,20 @@ const GraphBox: FunctionComponent<GraphBoxPorps> = ({
 
   return (
     <div className="container-fluid mx-auto row justify-content-center flex-wrap">
-      <Graph id="approx" title="Approximations" x={x} lines={approxLines} />
-      <Graph id="errs" title="Relative Errors" x={x} lines={errLines} />
+      <Graph
+        id="approx"
+        title="Approximations"
+        x={x}
+        lines={approxLines}
+        showLabel={showLabel}
+      />
+      <Graph
+        id="errs"
+        title="Relative Errors"
+        x={x}
+        lines={errLines}
+        showLabel={showLabel}
+      />
     </div>
   );
 };
