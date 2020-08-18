@@ -14,7 +14,11 @@ def true(expr, value, n):
 
 
 def get_rel_err(v, t):
-    return float(v), float(abs((v - t)/t))
+    if t == 0:
+        rel_err = float(abs(v-t))
+    else:
+        rel_err = float(abs(v-t)/abs(t))
+    return float(v), rel_err
 
 
 def lanczo(expr, value, n):
@@ -36,6 +40,7 @@ def getAllDerivatives(formula, v, n):
     vals = [get_rel_err(newtonValue, trueValue),
             get_rel_err(lanczoValue, trueValue),
             get_rel_err(finiteValue, trueValue)]
+    print(vals)
     return t, vals
 
 
