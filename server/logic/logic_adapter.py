@@ -40,7 +40,6 @@ def getAllDerivatives(formula, v, n):
     vals = [get_rel_err(newtonValue, trueValue),
             get_rel_err(lanczoValue, trueValue),
             get_rel_err(finiteValue, trueValue)]
-    print(vals)
     return t, vals
 
 
